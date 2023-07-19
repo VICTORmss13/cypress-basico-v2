@@ -1,0 +1,3 @@
+Abrir cypress: npx cypress open
+
+
