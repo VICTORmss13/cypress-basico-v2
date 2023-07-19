@@ -1,3 +1,8 @@
 Abrir cypress: npx cypress open
 
 
+Visitar URL: cy.visit('https://google.com')
+
+Durante o curso vamos usar o arquivo local da aplicação CAC TAT. (src/index.html)
+
+
