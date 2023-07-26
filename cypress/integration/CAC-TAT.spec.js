@@ -15,7 +15,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#lastName').type('Filho')
         cy.get('#email').type('walmyr@exemplo.com')
         cy.get('#open-text-area').type(longText, { delay: 0 })
-        cy.get('button[type="submit"]').click()
+        cy.contains('button', 'Enviar').click()
 
         cy.get('.success').should('be.visible')
     })
@@ -24,7 +24,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#lastName').type('Filho')
         cy.get('#email').type('walmyr@exemplo,com')
         cy.get('#open-text-area').type('Teste')
-        cy.get('button[type="submit"]').click()
+        cy.contains('button', 'Enviar').click()
 
         cy.get('.error').should('be.visible')
     })
@@ -35,16 +35,51 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             .should('have.value', '')
     })
 
-    it.only('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function () {
+    it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function () {
         cy.get('#firstName').type('Walmyr')
         cy.get('#lastName').type('Filho')
         cy.get('#email').type('walmyr@exemplo.com')
         cy.get('#phone-checkbox').click()
         cy.get('#open-text-area').type('Teste')
-        cy.get('button[type="submit"]').click()
+        cy.contains('button', 'Enviar').click()
 
         cy.get('.error').should('be.visible')
     })
 
+    it('Prrenche e limpa os campos nome, sobrenome, email e telefone', function (){
+        cy.get('#firstName')
+            .type('Walmyr')
+            .should('have.value', 'Walmyr')
+            .clear()
+            .should('have.value', '')
 
+        cy.get('#lastName')
+            .type('Filho')
+            .should('have.value', 'Filho')
+            .clear()
+            .should('have.value', '')    
+    
+        cy.get('#email')
+            .type('walmyr@exemplo.com')
+            .should('have.value', 'walmyr@exemplo.com')
+            .clear()
+            .should('have.value', '')
+        cy.get('#phone')
+            .type('31998870098')
+            .should('have.value', '31998870098')
+            .clear()
+            .should('have.value', '')    
+    })  
+
+    it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function () {
+        cy.contains('button', 'Enviar').click()
+
+        cy.get('.error').should('be.visible')
+    })
+
+    it('envio o formulário com sucesso usando um comando customizado', function() {
+        cy.fillMandatoryFieldsAndSubmit()
+
+        cy.get('.success').should('be.visible')
+    })
 })

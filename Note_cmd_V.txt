@@ -5,4 +5,5 @@ Visitar URL: cy.visit('https://google.com')
 
 Durante o curso vamos usar o arquivo local da aplicação CAC TAT. (src/index.html)
 
-
+2023-07-26
+Aprendi a usar o comando 'Ctrl + Shift + L' para selecionar todas as linhas em que o elemento selecionado está. 
