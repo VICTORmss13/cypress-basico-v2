@@ -95,11 +95,44 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             .should('have.value', 'mentoria')
     })
 
-    it.only('seleciona um produto (Blog) por seu índice', function () {
+    it('seleciona um produto (Blog) por seu índice', function () {
         cy.get('#product')
         .select(1)
         .should('have.value', 'blog')
 
     })
+
+    it('marca o tipo de atendimento "Feedback"', function () {
+        cy.get('input[type="radio"][value="feedback"]')
+            .check()
+            .should('have.value', 'feedback')
+    })
+    // First try before watching the lesson.
+    // it.only('marca cada tipo de atendimento', function () {
+    //     cy.get('input[type="radio"]')
+    //         .check()
+    //         .should('be.checked')
+
+    // })
+
+    it.only('marca cada tipo de atendimento', function () {
+        cy.get('input[type="radio"]')
+            .should('have.length', 3)
+            .each(function($radio){
+                cy.wrap($radio).check()
+                cy.wrap($radio).should('be.checked')
+            })
+    })
+
+    // Alternativa de outro aluno:
+    // it('marca cada tipo de atendimento', () => {
+    //     cy.get('[type="radio"]')
+    //         .should('have.length', 3)
+    //         .each(res => {
+    //             cy.get(res).check()
+    //             .should('be.checked')
+    //          })
+    // })
+
 
 })
